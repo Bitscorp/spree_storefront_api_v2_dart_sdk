@@ -12,6 +12,12 @@ class AuthTokenAttr {
     const AuthTokenAttr(this.username, this.password);
 }
 
+class RefreshTokenAttr {
+    final String refreshToken;
+
+    const RefreshTokenAttr(this.refreshToken);
+}
+
 class IOAuthTokenResult extends http.Data {
     final String accessToken;
     final String tokenType;
@@ -52,6 +58,18 @@ class Authentication extends http.Http {
                     'username': params.username,
                     'password': params.password,
                     'grant_type': 'password'
+                });
+
+        var dataResponse = http.DataResponse<IOAuthTokenResult, http.ErrorResponse>(
+            resp, (data) => IOAuthTokenResult.fromJson(data));
+        return dataResponse;
+    }
+
+    Future<http.DataResponse<IOAuthTokenResult, http.ErrorResponse>> refreshToken(RefreshTokenAttr params) async {
+        final resp = await spreeResponse('post', Routes.oauthTokenPath(),
+                params: {
+                    'refresh_token': params.refreshToken,
+                    'grant_type': 'refresh_token'
                 });
 
         var dataResponse = http.DataResponse<IOAuthTokenResult, http.ErrorResponse>(
