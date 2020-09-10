@@ -1,6 +1,7 @@
+import 'package:spree_storefront_api_v2_dart_sdk/endpoints/account.dart';
 import 'package:spree_storefront_api_v2_dart_sdk/endpoints/authentication.dart';
+import 'package:spree_storefront_api_v2_dart_sdk/endpoints/order.dart';
 import 'package:spree_storefront_api_v2_dart_sdk/endpoints/products.dart';
-
 
 class HostConfig {
   String scheme;
@@ -14,7 +15,7 @@ class HostConfig {
       this.scheme = 'http';
     }
 
-    if(this.port == null) {
+    if (this.port == null) {
       if (this.scheme == 'http') {
         this.port = 80;
       } else {
@@ -24,11 +25,8 @@ class HostConfig {
   }
 }
 
-
 class Client {
   final HostConfig host;
-
-  Authentication authentication;
 
   Client(this.host);
 
@@ -38,5 +36,13 @@ class Client {
 
   Products makeProducts() {
     return Products(this.host);
+  }
+
+  Order makeOrder() {
+    return Order(this.host);
+  }
+
+  Account makeAccount() {
+    return Account(this.host);
   }
 }

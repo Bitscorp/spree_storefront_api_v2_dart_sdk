@@ -1,6 +1,5 @@
 import 'package:spree_storefront_api_v2_dart_sdk/client.dart';
 import 'package:spree_storefront_api_v2_dart_sdk/endpoints/http.dart' as http;
-import 'package:spree_storefront_api_v2_dart_sdk/endpoints/http.dart';
 import 'package:spree_storefront_api_v2_dart_sdk/endpoints/routes.dart';
 
 class OrderAttr extends http.Data {
@@ -90,10 +89,10 @@ class OrderAttr extends http.Data {
         displayPromoTotal: attrs['display_promo_total'],
         itemCount: int.parse(attrs['item_count']),
         specialInstructions: attrs['special_instructions'],
-        displayTotal: json['display_total'],
-        createdAt: json['created_at'],
-        updatedAt: json['updated_at'],
-        completedAt: json['completed_at']);
+        displayTotal: attrs['display_total'],
+        createdAt: attrs['created_at'],
+        updatedAt: attrs['updated_at'],
+        completedAt: attrs['completed_at']);
   }
 }
 
@@ -122,7 +121,7 @@ class Order extends http.Http {
   Order(HostConfig host) : super(host);
 
   Future<http.DataResponse<OrderResult, http.ErrorResponse>> status(
-      Token token, String orderNumber,
+      http.Token token, String orderNumber,
       {http.Query query}) async {
     final resp = await spreeResponse('get', Routes.orderStatusPath(orderNumber),
         token: token, params: query?.params());
