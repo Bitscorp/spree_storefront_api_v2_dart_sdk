@@ -58,16 +58,16 @@ class ProductAttr extends http.Data {
   }
 }
 
-class IProductsResult extends http.Data with http.JsonList {
-  IProductsResult();
+class ProductsResult extends http.Data with http.JsonList {
+  ProductsResult();
 
-  factory IProductsResult.fromJson(Map<String, dynamic> json) {
+  factory ProductsResult.fromJson(Map<String, dynamic> json) {
     if (!json.containsKey('data')) {
       // nothing to return if we don't have anything in `data`
-      return IProductsResult();
+      return ProductsResult();
     }
 
-    var result = IProductsResult()
+    var result = ProductsResult()
       ..meta(json)
       ..data(json);
     return result;
@@ -89,13 +89,13 @@ class IProductsResult extends http.Data with http.JsonList {
 class Products extends http.Http {
   Products(HostConfig host) : super(host);
 
-  Future<http.DataResponse<IProductsResult, http.ErrorResponse>> list(
+  Future<http.DataResponse<ProductsResult, http.ErrorResponse>> list(
       {http.Query query}) async {
     final resp = await spreeResponse('get', Routes.productsPath(),
         params: query?.params());
 
-    var dataResponse = http.DataResponse<IProductsResult, http.ErrorResponse>(
-        resp, (data) => IProductsResult.fromJson(data));
+    var dataResponse = http.DataResponse<ProductsResult, http.ErrorResponse>(
+        resp, (data) => ProductsResult.fromJson(data));
     return dataResponse;
   }
 }
