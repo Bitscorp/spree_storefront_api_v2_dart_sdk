@@ -14,9 +14,9 @@ class ProductAttr extends http.Data {
   final String metaDescription;
   final String metaKeywords;
   final String updatedAt;
-  final String purchasable;
-  final String inStock;
-  final String backorderable;
+  final bool purchasable;
+  final bool inStock;
+  final bool backorderable;
   final String slug;
 
   ProductAttr(
@@ -40,10 +40,10 @@ class ProductAttr extends http.Data {
     var attrs = json['attributes'];
     return new ProductAttr(
       type: json['type'],
-      id: json['id'],
+      id: int.parse(json['id']),
       name: attrs['name'],
       description: attrs['description'],
-      price: attrs['price'],
+      price: double.parse(attrs['price']),
       currency: attrs['currency'],
       displayPrice: attrs['display_price'],
       availableOn: attrs['available_on'],
@@ -76,9 +76,10 @@ class IProductsResult extends http.Data with http.JsonList {
   @override
   data(Map<String, dynamic> json) {
     list = new List<ProductAttr>();
+
     if (json.containsKey('data')) {
-      (json['data'] as List<Map<String, dynamic>>)
-          .forEach((x) => list.add(ProductAttr.fromJson(x)));
+      (json['data'] as List<dynamic>).forEach(
+          (x) => list.add(ProductAttr.fromJson(x as Map<String, dynamic>)));
     }
 
     return list;
