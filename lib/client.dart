@@ -1,4 +1,5 @@
 import 'package:spree_storefront_api_v2_dart_sdk/endpoints/authentication.dart';
+import 'package:spree_storefront_api_v2_dart_sdk/endpoints/products.dart';
 
 
 class HostConfig {
@@ -33,5 +34,9 @@ class Client {
 
   Authentication makeAuthentication() {
     return Authentication(this.host);
+  }
+
+  Products makeProducts() {
+    return Products(this.host);
   }
 }
