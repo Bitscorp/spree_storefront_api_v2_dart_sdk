@@ -37,9 +37,23 @@ class ProductAttr extends http.Data {
       this.slug});
 
   factory ProductAttr.fromJson(Map<String, dynamic> json) {
+    var attrs = json['attributes'];
     return new ProductAttr(
       type: json['type'],
       id: json['id'],
+      name: attrs['name'],
+      description: attrs['description'],
+      price: attrs['price'],
+      currency: attrs['currency'],
+      displayPrice: attrs['display_price'],
+      availableOn: attrs['available_on'],
+      metaDescription: attrs['meta_description'],
+      metaKeywords: attrs['meta_keywords'],
+      updatedAt: attrs['updated_at'],
+      purchasable: attrs['purchasable'],
+      inStock: attrs['in_stock'],
+      backorderable: attrs['backorderable'],
+      slug: attrs['slug'],
     );
   }
 }
