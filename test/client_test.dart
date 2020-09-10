@@ -21,11 +21,17 @@ void testProducts(Client client) {
       'products should return list of products, ensure to have at least one item in DB',
       () async {
     var func = () async {
-      var resp = await products.list();
+      var productsResp = await products.list();
 
-      expect(resp.error, isNull);
-      expect(resp.success, isNotNull);
-      expect(resp.success.list.length, greaterThanOrEqualTo(1));
+      expect(productsResp.error, isNull);
+      expect(productsResp.success, isNotNull);
+      expect(productsResp.success.list.length, greaterThanOrEqualTo(1));
+
+      var id = productsResp.success.list[0].id;
+      var productResp = await products.get(id.toString());
+      expect(productResp.error, isNull);
+      expect(productResp.success, isNotNull);
+      expect(productResp.success.object.id, equals(id));
     };
 
     await func();

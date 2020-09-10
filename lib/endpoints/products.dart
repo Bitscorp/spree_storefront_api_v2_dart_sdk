@@ -81,8 +81,27 @@ class ProductsResult extends http.Data with http.JsonList {
       (json['data'] as List<dynamic>).forEach(
           (x) => list.add(ProductAttr.fromJson(x as Map<String, dynamic>)));
     }
+  }
+}
 
-    return list;
+class ProductResult extends http.Data with http.JsonObject {
+  ProductResult();
+
+  factory ProductResult.fromJson(Map<String, dynamic> json) {
+    if (!json.containsKey('data')) {
+      // nothing to return if we don't have anything in `data`
+      return ProductResult();
+    }
+
+    var result = ProductResult()..data(json);
+    return result;
+  }
+
+  @override
+  data(Map<String, dynamic> json) {
+    if (json.containsKey('data')) {
+      object = ProductAttr.fromJson(json['data']);
+    }
   }
 }
 
@@ -96,6 +115,16 @@ class Products extends http.Http {
 
     var dataResponse = http.DataResponse<ProductsResult, http.ErrorResponse>(
         resp, (data) => ProductsResult.fromJson(data));
+    return dataResponse;
+  }
+
+  Future<http.DataResponse<ProductResult, http.ErrorResponse>> get(String id,
+      {http.Query query}) async {
+    final resp = await spreeResponse('get', Routes.productPath(id),
+        params: query?.params());
+
+    var dataResponse = http.DataResponse<ProductResult, http.ErrorResponse>(
+        resp, (data) => ProductResult.fromJson(data));
     return dataResponse;
   }
 }

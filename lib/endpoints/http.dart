@@ -70,6 +70,12 @@ abstract class JsonList {
   data(Map<String, dynamic> json);
 }
 
+abstract class JsonObject {
+  dynamic object;
+
+  data(Map<String, dynamic> json);
+}
+
 class Token {
   final String orderToken;
   final String bearerToken;
