@@ -1,5 +1,5 @@
 name: spree_storefront_api_v2_dart_sdk
-description: Spree API integration.
+description: Spree API integration. Used to use as part of ecommerce flutter project to provide access for products, checkout and other API endpoints of Spree API V2.
 version: 0.0.1
 author:
 homepage: https://github.com/bitscorp/spree_storefront_api_v2_dart_sdk

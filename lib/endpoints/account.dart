@@ -58,7 +58,7 @@ class CreditCardAttr {
   final int month;
   final int year;
   final String name;
-  final bool default_;
+  final bool isDefault;
 
   CreditCardAttr(
       {this.type,
@@ -68,7 +68,7 @@ class CreditCardAttr {
       this.month,
       this.year,
       this.name,
-      this.default_});
+      this.isDefault});
 
   factory CreditCardAttr.fromJson(Map<String, dynamic> json) {
     var attrs = json['attributes'];
@@ -81,7 +81,7 @@ class CreditCardAttr {
       month: int.parse(attrs['month']),
       year: int.parse(attrs['display_price']),
       // TODO: verify boolean type on json parse from dynamic field.
-      default_: attrs['default'],
+      isDefault: attrs['default'],
     );
   }
 }
